@@ -158,6 +158,7 @@ public class Learner {
   }
 
   private void computeExpectedCounts(Example ex, List<Derivation> derivations, Map<String, Double> counts) {
+    //why we pass in example itself with its predDerivations. just passing in ex is ok!
     final boolean addDummy = opts.alwaysUpdate && !opts.binaryLogistic;
 
     double[] trueScores;
@@ -234,6 +235,8 @@ public class Learner {
 
     Map<String, Double> counts = new HashMap<String, Double>();
     int batchSize = 0;
+
+    //TODO: IF SVM....here needs to sample a subset of examples to compute the learning rate for SVM. How many is enough? 3?
     for (int e = 0; e < examples.size(); e++) {
       Example ex = examples.get(e);
 
@@ -259,7 +262,7 @@ public class Learner {
       ex.predDerivations.clear();
       ex.predDerivationsAfterParse.clear();
     }
-    if (doUpdateWeights && batchSize > 0)
+    if (doUpdateWeights && batchSize > 0)//the last a few examples which is less than the batchSize
       updateWeights(counts);
 
     LogInfo.end_track();

@@ -83,6 +83,17 @@ public class Params {
     LogInfo.end_track();
   }
 
+  // Bing
+  // To scale each feature weight by value-scale
+  public synchronized void scaleWeights(double scale){
+
+    for(Map.Entry<String,Double> entry : weights.entrySet()){
+      String f = entry.getKey();
+      double g = entry.getValue();
+      weights.replace(f,g*scale);
+    }
+
+  }
   // Update weights by adding |gradient| (modified appropriately with step size).
   public synchronized void update(Map<String, Double> gradient) {
     numUpdates++;
