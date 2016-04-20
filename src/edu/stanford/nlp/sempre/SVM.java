@@ -158,15 +158,16 @@ public class SVM {
 ///TODO :  next is about how to compute the learning rate-learnRate?( need a subset sample? Or just set?
     ///TODO: also include a test function here
 
-    double testOne(const SVector &x, double y, double *ploss, double *pnerr);
+  //  double testOne(const SVector &x, double y, double *ploss, double *pnerr);
 
 
 /// Perform one epoch with fixed eta and return cost
 
     double evaluateEta(int imin, int imax, List<Example> examples,  double eta)
     {
-        Params clone
+
         //TODO need to have a cloned params instead of changing the original one
+        // It seems Just cloning the weights map is more convenient
         assert(imin <= imax);
         for (int i=imin; i<=imax; i++)
             this.computeExpectedCounts(xp.at(i), yp.at(i), eta);
